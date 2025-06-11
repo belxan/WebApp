@@ -7,10 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="User\Commands\" />
-    <Folder Include="User\EventHandlers\" />
-    <Folder Include="User\Validators\" />
-    <Folder Include="User\Queries\" />
+    <Compile Remove="User\EventHandlers\**" />
+    <Compile Remove="User\Queries\**" />
+    <Compile Remove="User\Validators\**" />
+    <EmbeddedResource Remove="User\EventHandlers\**" />
+    <EmbeddedResource Remove="User\Queries\**" />
+    <EmbeddedResource Remove="User\Validators\**" />
+    <None Remove="User\EventHandlers\**" />
+    <None Remove="User\Queries\**" />
+    <None Remove="User\Validators\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +23,11 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="12.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="User\Commands\" />
   </ItemGroup>
 
 </Project>
