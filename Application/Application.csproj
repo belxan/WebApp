@@ -7,15 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="User\EventHandlers\**" />
-    <Compile Remove="User\Queries\**" />
-    <Compile Remove="User\Validators\**" />
-    <EmbeddedResource Remove="User\EventHandlers\**" />
-    <EmbeddedResource Remove="User\Queries\**" />
-    <EmbeddedResource Remove="User\Validators\**" />
-    <None Remove="User\EventHandlers\**" />
-    <None Remove="User\Queries\**" />
-    <None Remove="User\Validators\**" />
+    <Compile Remove="Features\User\EventHandlers\**" />
+    <Compile Remove="Features\User\Queries\**" />
+    <Compile Remove="Features\User\Validators\**" />
+    <EmbeddedResource Remove="Features\User\EventHandlers\**" />
+    <EmbeddedResource Remove="Features\User\Queries\**" />
+    <EmbeddedResource Remove="Features\User\Validators\**" />
+    <None Remove="Features\User\EventHandlers\**" />
+    <None Remove="Features\User\Queries\**" />
+    <None Remove="Features\User\Validators\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,7 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="User\Commands\" />
+    <Folder Include="Features\" />
+    <Folder Include="Features\User\Commands\" />
   </ItemGroup>
 
 </Project>

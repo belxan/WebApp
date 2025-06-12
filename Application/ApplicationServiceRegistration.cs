@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Application;
 
-public static class ApplicationServiceREgistration
+public static class ApplicationServiceRegistration
 {
     public static void AddApplicationServices(this IHostApplicationBuilder builder)
     {
