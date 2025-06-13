@@ -1,10 +1,18 @@
 using Application;
+using Application.Common.Config;
 using Infrastructure;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 var builder = WebApplication.CreateBuilder(args);
-builder.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var config = new ConfigSettings();
+builder.Configuration.GetSection(nameof(ConfigSettings)).Bind(config);
+builder.Services.TryAddSingleton(config);
+
+builder.Services
+    .AddApplicationServices()
+    .AddInfrastructureServices(config.DatabaseOptionSettings)
+    .AddEndpointsApiExplorer()
+    .AddSwaggerGen()
+    .AddMiniProfiler();
 
 // Add services to the container.
 

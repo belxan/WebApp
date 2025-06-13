@@ -1,21 +1,25 @@
-﻿using Infrastructure.Data;
-using Infrastructure.Data.EntityFramework;
-using Infrastructure.Data.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Application.Common.Config;
 
 namespace Infrastructure;
 
 public static class InfrastructureServiceRegistration
 {
-    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, DatabaseOptionSettings settings)
     {
-        // Register DbContext with Npgsql
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+        services.AddDbContext<AppDbContext>(dbContextOptionBuilder =>
+        {
 
+            dbContextOptionBuilder.UseNpgsql(settings.ConnectionStrings.AppDb, action =>
+            {
+                action.EnableRetryOnFailure(settings.MaxRetryCount);
+
+                action.CommandTimeout(settings.CommandTimeout);
+            });
+
+            dbContextOptionBuilder.EnableDetailedErrors(settings.EnableDetailedErrors);
+        });
 
         // Register Unit of work
         services.AddScoped<IUnitOfWork, UnitOfWork>();

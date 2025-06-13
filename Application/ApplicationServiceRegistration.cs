@@ -6,15 +6,16 @@ namespace Application;
 
 public static class ApplicationServiceRegistration
 {
-    public static void AddApplicationServices(this IHostApplicationBuilder builder)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-        builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        builder.Services.AddMediatR(cfg => {
+        services.AddMediatR(cfg => {
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
         });
+        return services;
     }
 }
