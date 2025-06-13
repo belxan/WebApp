@@ -1,7 +1,10 @@
+using Application;
 using Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
+builder.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
-
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // Add services to the container.
 
@@ -15,6 +18,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

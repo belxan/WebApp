@@ -8,14 +8,8 @@
 
   <ItemGroup>
     <Compile Remove="Features\User\EventHandlers\**" />
-    <Compile Remove="Features\User\Queries\**" />
-    <Compile Remove="Features\User\Validators\**" />
     <EmbeddedResource Remove="Features\User\EventHandlers\**" />
-    <EmbeddedResource Remove="Features\User\Queries\**" />
-    <EmbeddedResource Remove="Features\User\Validators\**" />
     <None Remove="Features\User\EventHandlers\**" />
-    <None Remove="Features\User\Queries\**" />
-    <None Remove="Features\User\Validators\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,8 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
-    <Folder Include="Features\User\Commands\" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>
