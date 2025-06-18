@@ -1,12 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.DTOs.FlightSearch;
+using Infrastructure.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-public class FlightSearchController : Controller
+[ApiController]
+[Route("api/[controller]")]
+public class FlightSearchController : ControllerBase
 {
-    // GET
-    public IActionResult Index()
+    private readonly FlightSearchService _flightSearchService;
+
+    public FlightSearchController(FlightSearchService flightSearchService)
     {
-        return View();
+        _flightSearchService = flightSearchService;
+    }
+
+    [HttpPost("roundtrip")]
+    public async Task<IActionResult> RoundTripSearch([FromBody] RoundTripRequest request)
+    {
+        var result = await _flightSearchService.SearchRoundTripAsync(request);
+        return Ok(result);
     }
 }
