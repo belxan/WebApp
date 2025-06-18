@@ -10,5 +10,5 @@ public abstract class BaseAuditableEntity : BaseEntity
 
     public long? LastModifiedBy { get; set; }
     public bool IsDeleted { get; set; } = default;
-    public bool IsActive { get; set; } = default!;
+    public bool IsActive { get; set; } = default;
 }

@@ -2,6 +2,8 @@
 using Application.Features.User.Commands;
 using Application.Features.User.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -18,6 +20,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<ActionResult<IEnumerable<UserResponseDto>>> GetUsers()
     {
         var users = await _mediator.Send(new GetAllUsersQuery());

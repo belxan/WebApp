@@ -9,7 +9,7 @@ builder.Configuration.GetSection(nameof(ConfigSettings)).Bind(config);
 builder.Services.TryAddSingleton(config);
 
 builder.Services
-    .AddApplicationServices()
+    .AddApplicationServices(config.AuthSettings.SecretKey)
     .AddInfrastructureServices(config.DatabaseOptionSettings)
     .AddEndpointsApiExplorer()
     .AddMiniProfiler();
