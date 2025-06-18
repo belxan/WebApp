@@ -1,3 +1,4 @@
+using API;
 using Application;
 using Application.Common.Config;
 using Infrastructure;
@@ -11,23 +12,31 @@ builder.Services
     .AddApplicationServices()
     .AddInfrastructureServices(config.DatabaseOptionSettings)
     .AddEndpointsApiExplorer()
-    .AddSwaggerGen()
     .AddMiniProfiler();
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+
+//register swagger
+if (config.SwaggerSettings.IsEnabled)
+{
+    builder.Services.AddSwagger(config);
+}
 
 var app = builder.Build();
-
+app.UseStaticFiles();
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (config.SwaggerSettings.IsEnabled)
 {
-    app.MapOpenApi();
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.EnablePersistAuthorization();
+        c.InjectStylesheet(config.SwaggerSettings.Theme);
+    });
 }
 
 app.UseHttpsRedirection();
